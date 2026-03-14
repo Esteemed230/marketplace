@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PixelShelf — E-Commerce Content Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0d0d0d;
+    --cream: #f8f5ef;
+    --sand: #e8e2d6;
+    --rust: #c1440e;
+    --rust-light: #f5e8e3;
+    --teal: #1a6b6b;
+    --teal-light: #e2f0f0;
+    --gold: #b8962e;
+    --gold-light: #faf3df;
+    --muted: #6b6560;
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(248,245,239,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--sand);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--rust); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--rust); }
+  .nav-cta {
+    background: var(--ink); color: var(--white);
+    border: none; padding: 0.65rem 1.6rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--rust); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 4rem 6rem 4rem;
+    background: var(--cream);
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--rust);
+    margin-bottom: 1.5rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 24px; height: 1px; background: var(--rust);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 700; line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em {
+    font-style: italic; color: var(--rust);
+  }
+  .hero-sub {
+    font-size: 1rem; color: var(--muted);
+    max-width: 420px; line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; }
+  .btn-primary {
+    background: var(--ink); color: var(--white);
+    padding: 1rem 2.2rem; font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    border: none; cursor: pointer; text-decoration: none;
+    display: inline-block; transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--rust); }
+  .btn-ghost {
+    background: transparent; color: var(--ink);
+    padding: 1rem 2.2rem; font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    border: 1.5px solid var(--ink); cursor: pointer; text-decoration: none;
+    display: inline-block; transition: all 0.2s;
+  }
+  .btn-ghost:hover { background: var(--ink); color: var(--white); }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3rem;
+    padding-top: 2rem; border-top: 1px solid var(--sand);
+  }
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: var(--ink);
+    display: block;
+  }
+  .hero-stat-label {
+    font-size: 0.75rem; color: var(--muted);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  .hero-right {
+    position: relative;
+    background: var(--ink);
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
+    height: 100%; gap: 3px;
+  }
+  .hero-img {
+    position: relative; overflow: hidden; background: var(--sand);
+  }
+  .hero-img svg {
+    width: 100%; height: 100%; display: block;
+  }
+  .hero-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(193,68,14,0.15) 0%, transparent 60%);
+  }
+  .hero-img-badge {
+    position: absolute; bottom: 12px; left: 12px;
+    background: rgba(13,13,13,0.85); color: var(--white);
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 4px 10px;
+    backdrop-filter: blur(4px);
+  }
+  .hero-img-large { grid-row: 1 / 3; }
+
+  /* ── SECTION HEADER ── */
+  .section { padding: 7rem 4rem; }
+  .section-header { margin-bottom: 4rem; }
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--rust);
+    margin-bottom: 0.8rem;
+  }
+  .section-tag::before {
+    content: ''; width: 20px; height: 1px; background: var(--rust);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 700; line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .section-title em { font-style: italic; color: var(--rust); }
+  .section-sub {
+    font-size: 0.95rem; color: var(--muted);
+    max-width: 480px; margin-top: 0.8rem; line-height: 1.8;
+  }
+
+  /* ── GALLERY ── */
+  .gallery-section { background: var(--white); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    gap: 12px;
+  }
+  .gallery-item {
+    position: relative; overflow: hidden;
+    background: var(--sand);
+    cursor: pointer;
+  }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-item:hover .gallery-img-inner { transform: scale(1.04); }
+  .gallery-img-inner {
+    width: 100%; height: 100%;
+    transition: transform 0.5s ease;
+  }
+  .gallery-overlay {
+    position: absolute; inset: 0;
+    background: rgba(13,13,13,0.5);
+    opacity: 0; transition: opacity 0.3s;
+    display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 1.2rem;
+  }
+  .gallery-overlay-title {
+    font-family: 'Playfair Display', serif;
+    color: var(--white); font-size: 1rem; font-weight: 700;
+  }
+  .gallery-overlay-tag {
+    font-size: 0.7rem; color: rgba(255,255,255,0.7);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px;
+  }
+
+  .g1 { grid-column: 1/6; grid-row: 1; height: 340px; }
+  .g2 { grid-column: 6/9; grid-row: 1; height: 340px; }
+  .g3 { grid-column: 9/13; grid-row: 1; height: 340px; }
+  .g4 { grid-column: 1/4; grid-row: 2; height: 260px; }
+  .g5 { grid-column: 4/8; grid-row: 2; height: 260px; }
+  .g6 { grid-column: 8/13; grid-row: 2; height: 260px; }
+
+  /* ── INFOGRAPHIC ── */
+  .infographic-section { background: var(--ink); color: var(--white); }
+  .infographic-section .section-tag { color: var(--gold); }
+  .infographic-section .section-tag::before { background: var(--gold); }
+  .infographic-section .section-title { color: var(--white); }
+  .infographic-section .section-title em { color: var(--gold); }
+  .infographic-section .section-sub { color: rgba(255,255,255,0.55); }
+
+  .infographic-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+    margin-top: 3rem;
+  }
+  .infographic-card {
+    background: rgba(255,255,255,0.04);
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.3s;
+  }
+  .infographic-card:hover { background: rgba(255,255,255,0.08); }
+  .infographic-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem; font-weight: 700; line-height: 1;
+    color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .infographic-number span { font-size: 1.5rem; vertical-align: super; }
+  .infographic-label {
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(255,255,255,0.5);
+    margin-bottom: 0.8rem;
+  }
+  .infographic-desc {
+    font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.7;
+  }
+  .infographic-bar {
+    height: 3px; background: rgba(255,255,255,0.1);
+    margin-top: 1.5rem; border-radius: 2px; overflow: hidden;
+  }
+  .infographic-bar-fill {
+    height: 100%; background: var(--gold); border-radius: 2px;
+    transition: width 1.5s ease;
+  }
+
+  .infographic-process {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 0; margin-top: 5rem; position: relative;
+  }
+  .infographic-process::before {
+    content: '';
+    position: absolute; top: 28px; left: 10%; right: 10%;
+    height: 1px; background: rgba(255,255,255,0.15);
+    z-index: 0;
+  }
+  .process-step { text-align: center; position: relative; z-index: 1; }
+  .process-circle {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700; color: var(--gold);
+    transition: background 0.3s;
+  }
+  .process-step:hover .process-circle { background: var(--rust); border-color: var(--rust); color: var(--white); }
+  .process-name {
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: rgba(255,255,255,0.7);
+    margin-bottom: 0.4rem;
+  }
+  .process-desc { font-size: 0.78rem; color: rgba(255,255,255,0.4); line-height: 1.6; }
+
+  /* ── LIFESTYLE ── */
+  .lifestyle-section { background: var(--cream); }
+  .lifestyle-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .lifestyle-visual {
+    position: relative;
+  }
+  .lifestyle-main-img {
+    width: 100%; aspect-ratio: 4/5;
+    background: var(--sand); overflow: hidden;
+    position: relative;
+  }
+  .lifestyle-float-card {
+    position: absolute; bottom: -2rem; right: -2rem;
+    background: var(--white);
+    padding: 1.5rem; width: 200px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  }
+  .lifestyle-float-label {
+    font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 0.3rem;
+  }
+  .lifestyle-float-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700; color: var(--ink);
+  }
+  .lifestyle-float-sub {
+    font-size: 0.75rem; color: var(--muted); margin-top: 0.3rem;
+  }
+  .lifestyle-content { padding-left: 2rem; }
+  .lifestyle-features { margin-top: 2rem; }
+  .lifestyle-feature {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.2rem 0; border-bottom: 1px solid var(--sand);
+  }
+  .lifestyle-feature:last-child { border-bottom: none; }
+  .lifestyle-feature-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: var(--rust-light);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .lifestyle-feature-title {
+    font-weight: 500; font-size: 0.92rem; margin-bottom: 0.2rem;
+  }
+  .lifestyle-feature-desc {
+    font-size: 0.83rem; color: var(--muted); line-height: 1.7;
+  }
+
+  /* ── A+ CONTENT ── */
+  .aplus-section { background: var(--white); }
+  .aplus-showcase {
+    border: 1px solid var(--sand);
+    overflow: hidden;
+  }
+  .aplus-header {
+    background: var(--ink); color: var(--white);
+    padding: 4rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .aplus-header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 700; line-height: 1.1;
+  }
+  .aplus-header-title em { font-style: italic; color: var(--gold); }
+  .aplus-header-desc { color: rgba(255,255,255,0.65); font-size: 0.9rem; line-height: 1.8; }
+  .aplus-header-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 700; color: var(--gold); margin-top: 1.5rem;
+  }
+  .aplus-header-price small { font-family: 'DM Sans'; font-size: 0.9rem; color: rgba(255,255,255,0.4); }
+  .aplus-header-stars {
+    display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;
+  }
+  .stars { color: var(--gold); letter-spacing: 0.1em; font-size: 1rem; }
+  .rating-count { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+
+  .aplus-modules {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
+  }
+  .aplus-module {
+    padding: 3rem; border-right: 1px solid var(--sand);
+    border-bottom: 1px solid var(--sand);
+  }
+  .aplus-module:nth-child(3n) { border-right: none; }
+  .aplus-module-icon {
+    width: 48px; height: 48px; background: var(--teal-light);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.2rem;
+  }
+  .aplus-module-title {
+    font-weight: 500; font-size: 1rem; margin-bottom: 0.5rem;
+    font-family: 'Playfair Display', serif;
+  }
+  .aplus-module-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+  .aplus-module-tag {
+    display: inline-block; margin-top: 1rem;
+    background: var(--teal-light); color: var(--teal);
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 4px 10px;
+  }
+
+  .aplus-comparison {
+    padding: 4rem; border-top: 1px solid var(--sand);
+  }
+  .comparison-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; margin-bottom: 2rem;
+  }
+  .comparison-table { width: 100%; border-collapse: collapse; }
+  .comparison-table th {
+    text-align: left; padding: 0.8rem 1rem;
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); border-bottom: 2px solid var(--sand);
+  }
+  .comparison-table th.highlight {
+    background: var(--ink); color: var(--gold);
+    text-align: center;
+  }
+  .comparison-table td {
+    padding: 0.9rem 1rem; font-size: 0.88rem;
+    border-bottom: 1px solid var(--sand); color: var(--ink);
+  }
+  .comparison-table td.highlight {
+    background: rgba(13,13,13,0.03); text-align: center;
+    font-weight: 500;
+  }
+  .check { color: var(--teal); font-weight: 600; }
+  .cross { color: #c0392b; }
+
+  /* ── SERVICES GRID ── */
+  .services-section { background: var(--sand); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    margin-top: 3rem;
+  }
+  .service-card {
+    background: var(--cream); padding: 3rem 2.5rem;
+    border: 1px solid rgba(0,0,0,0.07);
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: var(--rust); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+  .service-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 700;
+    color: var(--sand); letter-spacing: -0.02em;
+    margin-bottom: 1.5rem; line-height: 1;
+  }
+  .service-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem;
+  }
+  .service-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.8; }
+  .service-tags {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.5rem;
+  }
+  .tag {
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 4px 10px;
+    background: var(--sand); color: var(--muted);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: var(--white);
+    padding: 5rem 4rem 3rem;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem; margin-bottom: 4rem;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700; color: var(--white);
+    margin-bottom: 1rem;
+  }
+  .footer-brand span { color: var(--rust); }
+  .footer-tagline { font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 1.7; }
+  .footer-col-title {
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(255,255,255,0.35);
+    margin-bottom: 1.2rem;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 0.7rem; }
+  .footer-links a {
+    font-size: 0.88rem; color: rgba(255,255,255,0.6);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 2rem; display: flex; align-items: center;
+    justify-content: space-between;
+  }
+  .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(13,13,13,0.92); backdrop-filter: blur(6px);
+    align-items: center; justify-content: center;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox-inner {
+    background: var(--white); max-width: 900px; width: 90%;
+    max-height: 90vh; overflow-y: auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    position: relative;
+  }
+  .lightbox-visual {
+    background: var(--sand); min-height: 420px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .lightbox-visual svg { width: 100%; height: 100%; display: block; }
+  .lightbox-info {
+    padding: 3rem 2.5rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .lightbox-category {
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--rust);
+    display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;
+  }
+  .lightbox-category::before { content: ''; width: 20px; height: 1px; background: var(--rust); }
+  .lightbox-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700; line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .lightbox-desc {
+    font-size: 0.88rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem;
+  }
+  .lightbox-meta {
+    display: flex; flex-direction: column; gap: 0.6rem;
+    padding: 1.2rem; background: var(--cream); margin-bottom: 1.5rem;
+  }
+  .lightbox-meta-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.82rem;
+  }
+  .lightbox-meta-label { color: var(--muted); }
+  .lightbox-meta-value { font-weight: 500; color: var(--ink); }
+  .lightbox-actions { display: flex; gap: 0.8rem; }
+  .lightbox-close {
+    position: absolute; top: 1rem; right: 1rem;
+    background: var(--ink); color: var(--white);
+    border: none; width: 36px; height: 36px;
+    font-size: 1.2rem; cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+    z-index: 10; transition: background 0.2s;
+  }
+  .lightbox-close:hover { background: var(--rust); }
+  .lightbox-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: var(--ink); color: var(--white);
+    border: none; width: 40px; height: 40px;
+    font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s; z-index: 10;
+  }
+  .lightbox-nav:hover { background: var(--rust); }
+  .lightbox-prev { left: -20px; }
+  .lightbox-next { right: -20px; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.7s ease forwards; }
+  .delay-1 { animation-delay: 0.15s; opacity: 0; }
+  .delay-2 { animation-delay: 0.3s; opacity: 0; }
+  .delay-3 { animation-delay: 0.45s; opacity: 0; }
+  .delay-4 { animation-delay: 0.6s; opacity: 0; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Pixel<span>Shelf</span></a>
+  <ul class="nav-links">
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#infographic">Infographics</a></li>
+    <li><a href="#lifestyle">Lifestyle</a></li>
+    <li><a href="#aplus">A+ Content</a></li>
+    <li><a href="#services">Services</a></li>
+  </ul>
+  <button class="nav-cta">Start a Project</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow fade-up">Marketplace Visual Content</p>
+    <h1 class="hero-title fade-up delay-1">
+      Content that <em>converts</em><br>on every marketplace
+    </h1>
+    <p class="hero-sub fade-up delay-2">
+      Hero images, infographics, lifestyle composites, and A+ content designed to dominate Amazon, Shopify, Jumia, and beyond.
+    </p>
+    <div class="hero-actions fade-up delay-3">
+      <a href="#gallery" class="btn-primary">View Portfolio</a>
+      <a href="#services" class="btn-ghost">Our Services</a>
+    </div>
+    <div class="hero-stats fade-up delay-4">
+      <div>
+        <span class="hero-stat-num">340+</span>
+        <span class="hero-stat-label">Brands Served</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">12x</span>
+        <span class="hero-stat-label">Avg. CTR Lift</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">98%</span>
+        <span class="hero-stat-label">Client Retention</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-grid">
+      <!-- Large left image -->
+      <div class="hero-img hero-img-large">
+        <svg viewBox="0 0 400 680" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="680" fill="#1a1a1a"/>
+          <rect x="60" y="120" width="280" height="420" rx="8" fill="#2a2a2a"/>
+          <rect x="80" y="200" width="240" height="160" rx="4" fill="#c1440e" opacity="0.8"/>
+          <rect x="80" y="200" width="240" height="160" rx="4" fill="url(#grad1)" opacity="0.6"/>
+          <circle cx="200" cy="280" r="60" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <circle cx="200" cy="280" r="40" fill="rgba(255,255,255,0.1)"/>
+          <rect x="100" y="380" width="80" height="8" rx="4" fill="rgba(255,255,255,0.5)"/>
+          <rect x="100" y="396" width="140" height="6" rx="3" fill="rgba(255,255,255,0.25)"/>
+          <rect x="100" y="410" width="120" height="6" rx="3" fill="rgba(255,255,255,0.15)"/>
+          <rect x="100" y="440" width="60" height="28" rx="4" fill="#c1440e"/>
+          <rect x="170" y="440" width="80" height="28" rx="4" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+          <rect x="80" y="140" width="240" height="50" rx="4" fill="#111"/>
+          <text x="200" y="172" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="serif" font-size="14" font-weight="bold">HERO IMAGE EXAMPLE</text>
+          <defs>
+            <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#c1440e"/>
+              <stop offset="100%" stop-color="#1a6b6b"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="hero-img-overlay"></div>
+        <div class="hero-img-badge">Hero Image</div>
+      </div>
+      <!-- Top right -->
+      <div class="hero-img">
+        <svg viewBox="0 0 400 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="340" fill="#e8e2d6"/>
+          <circle cx="200" cy="130" r="90" fill="#c1440e" opacity="0.12"/>
+          <rect x="80" y="60" width="240" height="220" rx="6" fill="white" opacity="0.9"/>
+          <rect x="110" y="90" width="180" height="110" rx="4" fill="#f0ebe3"/>
+          <circle cx="200" cy="145" r="40" fill="#c1440e" opacity="0.7"/>
+          <circle cx="200" cy="145" r="25" fill="white" opacity="0.9"/>
+          <rect x="110" y="218" width="100" height="7" rx="3" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="110" y="232" width="70" height="6" rx="3" fill="#0d0d0d" opacity="0.3"/>
+          <text x="200" y="295" text-anchor="middle" fill="#6b6560" font-family="sans-serif" font-size="10" letter-spacing="2">LIFESTYLE COMPOSITE</text>
+        </svg>
+        <div class="hero-img-overlay"></div>
+        <div class="hero-img-badge">Lifestyle</div>
+      </div>
+      <!-- Bottom right -->
+      <div class="hero-img">
+        <svg viewBox="0 0 400 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="340" fill="#0d1f1f"/>
+          <rect x="30" y="40" width="340" height="260" rx="6" fill="#112929"/>
+          <rect x="50" y="60" width="140" height="16" rx="3" fill="#1a6b6b" opacity="0.6"/>
+          <rect x="50" y="86" width="80" height="36" rx="0" fill="none" stroke="#b8962e" stroke-width="1"/>
+          <text x="90" y="110" text-anchor="middle" fill="#b8962e" font-family="serif" font-size="18" font-weight="bold">94%</text>
+          <rect x="50" y="134" width="80" height="6" rx="3" fill="rgba(255,255,255,0.15)"/>
+          <rect x="50" y="134" width="75" height="6" rx="3" fill="#b8962e" opacity="0.7"/>
+          <rect x="160" y="86" width="180" height="60" rx="0" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          <rect x="170" y="96" width="40" height="5" rx="2" fill="rgba(255,255,255,0.3)"/>
+          <rect x="170" y="106" width="80" height="8" rx="2" fill="rgba(255,255,255,0.15)"/>
+          <rect x="170" y="120" width="60" height="5" rx="2" fill="rgba(255,255,255,0.1)"/>
+          <rect x="50" y="160" width="310" height="1" fill="rgba(255,255,255,0.08)"/>
+          <rect x="50" y="175" width="80" height="90" rx="2" fill="rgba(26,107,107,0.4)"/>
+          <rect x="145" y="210" width="80" height="55" rx="2" fill="rgba(193,68,14,0.4)"/>
+          <rect x="240" y="190" width="80" height="75" rx="2" fill="rgba(184,150,46,0.4)"/>
+          <text x="200" y="290" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="sans-serif" font-size="9" letter-spacing="2">INFOGRAPHIC</text>
+        </svg>
+        <div class="hero-img-overlay"></div>
+        <div class="hero-img-badge">Infographic</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section gallery-section" id="gallery">
+  <div class="section-header">
+    <p class="section-tag">Portfolio Gallery</p>
+    <h2 class="section-title">Hero images that <em>stop the scroll</em></h2>
+    <p class="section-sub">Every product deserves a first impression that converts. Our hero images are built for marketplace algorithms and human attention.</p>
+  </div>
+  <div class="gallery-grid">
+
+    <!-- G1 large -->
+    <div class="gallery-item g1">
+      <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" class="gallery-img-inner">
+        <rect width="600" height="340" fill="#f8f5ef"/>
+        <circle cx="300" cy="170" r="130" fill="#e8e2d6"/>
+        <rect x="180" y="70" width="240" height="200" rx="10" fill="white" opacity="0.9"/>
+        <rect x="200" y="90" width="200" height="120" rx="6" fill="#c1440e" opacity="0.15"/>
+        <ellipse cx="300" cy="150" rx="60" ry="80" fill="#c1440e" opacity="0.8"/>
+        <ellipse cx="300" cy="150" rx="40" ry="55" fill="white" opacity="0.95"/>
+        <rect x="220" y="225" width="160" height="8" rx="4" fill="#0d0d0d" opacity="0.5"/>
+        <rect x="240" y="240" width="120" height="6" rx="3" fill="#0d0d0d" opacity="0.25"/>
+        <text x="300" y="305" text-anchor="middle" fill="#6b6560" font-family="serif" font-size="12" font-style="italic">Skincare Collection</text>
+      </svg>
+      <div class="gallery-overlay">
+        <p class="gallery-overlay-title">Skincare Hero Series</p>
+        <p class="gallery-overlay-tag">Amazon · White Background</p>
+      </div>
+    </div>
+
+    <!-- G2 -->
+    <div class="gallery-item g2">
+      <svg viewBox="0 0 360 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" class="gallery-img-inner">
+        <rect width="360" height="340" fill="#0f1a2e"/>
+        <circle cx="180" cy="150" r="100" fill="#1a3a6b" opacity="0.5"/>
+        <rect x="90" y="60" width="180" height="180" rx="12" fill="#1a2d4a"/>
+        <rect x="110" y="80" width="140" height="90" rx="6" fill="#243d63"/>
+        <circle cx="180" cy="125" r="35" fill="#378add" opacity="0.6"/>
+        <circle cx="180" cy="125" r="20" fill="white" opacity="0.9"/>
+        <rect x="110" y="188" width="70" height="7" rx="3" fill="white" opacity="0.6"/>
+        <rect x="110" y="202" width="100" height="5" rx="2" fill="white" opacity="0.3"/>
+        <text x="180" y="285" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="sans-serif" font-size="10" letter-spacing="2">ELECTRONICS</text>
+      </svg>
+      <div class="gallery-overlay">
+        <p class="gallery-overlay-title">Tech Product Hero</p>
+        <p class="gallery-overlay-tag">Shopify · Dark Theme</p>
+      </div>
+    </div>
+
+    <!-- G3 -->
+    <div class="gallery-item g3">
+      <svg viewBox="0 0 480 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" class="gallery-img-inner">
+        <rect width="480" height="340" fill="#f0ebe3"/>
+        <rect x="0" y="220" width="480" height="120" fill="#e8e2d6"/>
+        <circle cx="240" cy="200" r="110" fill="rgba(184,150,46,0.12)"/>
+        <rect x="150" y="80" width="180" height="200" rx="4" fill="#c8a96e" opacity="0.3"/>
+        <rect x="170" y="100" width="140" height="160" rx="2" fill="white" opacity="0.8"/>
+        <circle cx="240" cy="175" r="50" fill="#b8962e" opacity="0.7"/>
+        <circle cx="240" cy="175" r="30" fill="white"/>
+        <text x="240" y="305" text-anchor="middle" fill="#6b6560" font-family="serif" font-size="11" font-style="italic">Premium Fragrance</text>
+      </svg>
+      <div class="gallery-overlay">
+        <p class="gallery-overlay-title">Luxury Fragrance</p>
+        <p class="gallery-overlay-tag">Sephora · Editorial</p>
+      </div>
+    </div>
+
+    <!-- G4 -->
+    <div class="gallery-item g4">
+      <svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" class="gallery-img-inner">
+        <rect width="360" height="260" fill="#1a3325"/>
+        <circle cx="180" cy="120" r="80" fill="#0f6e56" opacity="0.4"/>
+        <rect x="90" y="50" width="180" height="160" rx="8" fill="#143d2c"/>
+        <rect x="110" y="70" width="140" height="90" rx="4" fill="#1d9e75" opacity="0.3"/>
+        <ellipse cx="180" cy="115" rx="45" ry="55" fill="#1d9e75" opacity="0.8"/>
+        <rect x="110" y="178" width="80" height="7" rx="3" fill="white" opacity="0.5"/>
+        <text x="180" y="235" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="sans-serif" font-size="9" letter-spacing="2">WELLNESS</text>
+      </svg>
+      <div class="gallery-overlay">
+        <p class="gallery-overlay-title">Wellness Brand</p>
+        <p class="gallery-overlay-tag">Jumia · Green Theme</p>
+      </div>
+    </div>
+
+    <!-- G5 -->
+    <div class="gallery-item g5">
+      <svg viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" class="gallery-img-inner">
+        <rect width="480" height="260" fill="#fdf6ee"/>
+        <rect x="0" y="180" width="480" height="80" fill="#f5ede0"/>
+        <circle cx="240" cy="120" r="80" fill="rgba(193,68,14,0.08)"/>
+        <rect x="130" y="40" width="220" height="160" rx="6" fill="white"/>
+        <rect x="150" y="55" width="180" height="110" rx="3" fill="#f8f5ef"/>
+        <rect x="170" y="75" width="140" height="70" rx="2" fill="#c1440e" opacity="0.2"/>
+        <circle cx="240" cy="110" r="30" fill="#c1440e" opacity="0.75"/>
+        <text x="240" y="230" text-anchor="middle" fill="#6b6560" font-family="sans-serif" font-size="9" letter-spacing="2">FASHION & APPAREL</text>
+      </svg>
+      <div class="gallery-overlay">
+        <p class="gallery-overlay-title">Fashion Collection</p>
+        <p class="gallery-overlay-tag">Takealot · Campaign</p>
+      </div>
+    </div>
+
+    <!-- G6 -->
+    <div class="gallery-item g6">
+      <svg viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" class="gallery-img-inner">
+        <rect width="600" height="260" fill="#1a1a2e"/>
+        <circle cx="300" cy="120" r="100" fill="#16213e" opacity="0.8"/>
+        <rect x="150" y="30" width="300" height="200" rx="10" fill="#0f3460" opacity="0.6"/>
+        <rect x="170" y="50" width="260" height="140" rx="6" fill="#16213e"/>
+        <rect x="190" y="70" width="220" height="80" rx="4" fill="#e94560" opacity="0.2"/>
+        <circle cx="300" cy="110" r="35" fill="#e94560" opacity="0.7"/>
+        <circle cx="300" cy="110" r="20" fill="white" opacity="0.9"/>
+        <text x="300" y="240" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="sans-serif" font-size="9" letter-spacing="2">GAMING & TECH</text>
+      </svg>
+      <div class="gallery-overlay">
+        <p class="gallery-overlay-title">Gaming Peripherals</p>
+        <p class="gallery-overlay-tag">Amazon US · Dark Mode</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- INFOGRAPHIC -->
+<section class="section infographic-section" id="infographic">
+  <div class="section-header">
+    <p class="section-tag">Data Visualization</p>
+    <h2 class="section-title">Infographics that <em>tell your story</em></h2>
+    <p class="section-sub">Turn product specs and brand data into visual narratives that build trust and drive conversion.</p>
+  </div>
+
+  <div class="infographic-grid">
+    <div class="infographic-card">
+      <div class="infographic-number">3.2<span>x</span></div>
+      <div class="infographic-label">Conversion Lift</div>
+      <div class="infographic-desc">Products with infographics convert 3.2× better than text-only listings across all major marketplaces.</div>
+      <div class="infographic-bar"><div class="infographic-bar-fill" style="width:80%"></div></div>
+    </div>
+    <div class="infographic-card">
+      <div class="infographic-number">47<span>%</span></div>
+      <div class="infographic-label">Lower Return Rate</div>
+      <div class="infographic-desc">Clear visual specifications reduce buyer uncertainty and returns by nearly half.</div>
+      <div class="infographic-bar"><div class="infographic-bar-fill" style="width:47%"></div></div>
+    </div>
+    <div class="infographic-card">
+      <div class="infographic-number">9<span>s</span></div>
+      <div class="infographic-label">Avg. Decision Time</div>
+      <div class="infographic-desc">Shoppers spend just 9 seconds deciding. Infographics communicate your full value in that window.</div>
+      <div class="infographic-bar"><div class="infographic-bar-fill" style="width:60%"></div></div>
+    </div>
+    <div class="infographic-card">
+      <div class="infographic-number">94<span>%</span></div>
+      <div class="infographic-label">Visual Retention</div>
+      <div class="infographic-desc">Buyers retain 94% more information from visual content than from plain product descriptions.</div>
+      <div class="infographic-bar"><div class="infographic-bar-fill" style="width:94%"></div></div>
+    </div>
+  </div>
+
+  <div class="infographic-process">
+    <div class="process-step">
+      <div class="process-circle">1</div>
+      <div class="process-name">Brief</div>
+      <div class="process-desc">Product details, target audience, marketplace requirements</div>
+    </div>
+    <div class="process-step">
+      <div class="process-circle">2</div>
+      <div class="process-name">Research</div>
+      <div class="process-desc">Competitor audit, keyword data, top-seller analysis</div>
+    </div>
+    <div class="process-step">
+      <div class="process-circle">3</div>
+      <div class="process-name">Design</div>
+      <div class="process-desc">Visual hierarchy, brand colors, callout strategy</div>
+    </div>
+    <div class="process-step">
+      <div class="process-circle">4</div>
+      <div class="process-name">Refine</div>
+      <div class="process-desc">2 rounds of revisions, client feedback integration</div>
+    </div>
+    <div class="process-step">
+      <div class="process-circle">5</div>
+      <div class="process-name">Deliver</div>
+      <div class="process-desc">All formats: JPEG, PNG, WebP, platform-optimized</div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFESTYLE -->
+<section class="section lifestyle-section" id="lifestyle">
+  <div class="section-header">
+    <p class="section-tag">Lifestyle Composites</p>
+    <h2 class="section-title">Show your product <em>in the wild</em></h2>
+    <p class="section-sub">Photorealistic composite images that place your product in aspirational settings — no expensive photoshoots needed.</p>
+  </div>
+
+  <div class="lifestyle-grid">
+    <div class="lifestyle-visual">
+      <div class="lifestyle-main-img">
+        <svg viewBox="0 0 520 650" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
+          <rect width="520" height="650" fill="#d4c9b8"/>
+          <!-- Room background -->
+          <rect x="0" y="0" width="520" height="400" fill="#e8e0d2"/>
+          <rect x="0" y="400" width="520" height="250" fill="#c8bca8"/>
+          <!-- Window light -->
+          <rect x="320" y="0" width="200" height="300" fill="rgba(255,240,200,0.3)"/>
+          <rect x="350" y="20" width="4" height="260" fill="rgba(255,255,255,0.4)"/>
+          <rect x="320" y="150" width="200" height="3" fill="rgba(255,255,255,0.3)"/>
+          <!-- Table -->
+          <rect x="60" y="380" width="400" height="12" rx="2" fill="#8b7355"/>
+          <rect x="80" y="392" width="20" height="120" fill="#7a6348"/>
+          <rect x="420" y="392" width="20" height="120" fill="#7a6348"/>
+          <!-- Product (bottle) -->
+          <rect x="200" y="240" width="80" height="160" rx="12" fill="#c1440e" opacity="0.9"/>
+          <rect x="215" y="220" width="50" height="30" rx="6" fill="#a83a0c"/>
+          <rect x="225" y="208" width="30" height="16" rx="4" fill="#8a2f09"/>
+          <rect x="215" y="258" width="50" height="80" rx="4" fill="rgba(255,255,255,0.15)"/>
+          <text x="240" y="310" text-anchor="middle" fill="white" font-family="serif" font-size="10" font-weight="bold">SERUM</text>
+          <!-- Plants -->
+          <ellipse cx="120" cy="340" rx="50" ry="60" fill="#2d7a3a" opacity="0.7"/>
+          <ellipse cx="100" cy="360" rx="35" ry="45" fill="#1d5e2b" opacity="0.8"/>
+          <rect x="115" y="360" width="10" height="30" fill="#5a4028"/>
+          <!-- Shadow -->
+          <ellipse cx="240" cy="395" rx="50" ry="8" fill="rgba(0,0,0,0.2)"/>
+        </svg>
+      </div>
+      <div class="lifestyle-float-card">
+        <div class="lifestyle-float-label">Composite Type</div>
+        <div class="lifestyle-float-value">Studio</div>
+        <div class="lifestyle-float-sub">Lifestyle room setting with natural light rendering</div>
+      </div>
+    </div>
+
+    <div class="lifestyle-content">
+      <div class="section-tag">What We Create</div>
+      <h2 class="section-title" style="margin-top:0.8rem;">Composites for every<br><em>marketplace format</em></h2>
+      <p style="margin-top:1rem; color:var(--muted); font-size:0.9rem; line-height:1.8;">
+        We blend your product into professionally lit scenes — kitchens, offices, outdoor settings, bedrooms — with perfect shadow, reflection, and color grading. Every composite is marketplace-ready.
+      </p>
+      <div class="lifestyle-features">
+        <div class="lifestyle-feature">
+          <div class="lifestyle-feature-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <rect x="2" y="2" width="16" height="16" rx="3" fill="#c1440e" opacity="0.8"/>
+              <path d="M5 10h10M10 5v10" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="lifestyle-feature-title">Room & Environment Composites</div>
+            <div class="lifestyle-feature-desc">Place your product in kitchens, offices, bedrooms, and outdoor scenes with photorealistic lighting and shadows.</div>
+          </div>
+        </div>
+        <div class="lifestyle-feature">
+          <div class="lifestyle-feature-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="8" fill="#c1440e" opacity="0.8"/>
+              <circle cx="10" cy="10" r="4" fill="white" opacity="0.9"/>
+            </svg>
+          </div>
+          <div>
+            <div class="lifestyle-feature-title">In-Use / Action Shots</div>
+            <div class="lifestyle-feature-desc">Show your product being used naturally — in hands, in context, with people — all composited without a photoshoot.</div>
+          </div>
+        </div>
+        <div class="lifestyle-feature">
+          <div class="lifestyle-feature-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <rect x="1" y="5" width="18" height="12" rx="2" fill="#c1440e" opacity="0.8"/>
+              <rect x="6" y="2" width="8" height="5" rx="1" fill="#a83a0c"/>
+            </svg>
+          </div>
+          <div>
+            <div class="lifestyle-feature-title">Seasonal & Campaign Sets</div>
+            <div class="lifestyle-feature-desc">Holiday, seasonal, and promotional composites that keep your listing fresh year-round without reshooting.</div>
+          </div>
+        </div>
+        <div class="lifestyle-feature">
+          <div class="lifestyle-feature-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <polygon points="10,2 18,18 2,18" fill="#c1440e" opacity="0.8"/>
+              <circle cx="10" cy="13" r="2" fill="white"/>
+            </svg>
+          </div>
+          <div>
+            <div class="lifestyle-feature-title">Scale & Dimension Shots</div>
+            <div class="lifestyle-feature-desc">Contextual scale images that help buyers understand product size and dimensions without confusion.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- A+ CONTENT -->
+<section class="section aplus-section" id="aplus">
+  <div class="section-header">
+    <p class="section-tag">Amazon A+ Content</p>
+    <h2 class="section-title">Premium listing content that <em>outranks</em></h2>
+    <p class="section-sub">Full A+ Content modules built to Amazon Brand Registry specifications — increasing session time and conversion.</p>
+  </div>
+
+  <div class="aplus-showcase">
+    <!-- A+ Header Banner -->
+    <div class="aplus-header">
+      <div>
+        <h3 class="aplus-header-title">Premium Hydrating<br><em>Face Serum</em></h3>
+        <p class="aplus-header-desc" style="margin-top:1rem;">
+          Formulated with 98% natural ingredients, our award-winning serum delivers visible results in 14 days. Dermatologist tested. Cruelty-free. Suitable for all skin types.
+        </p>
+        <div class="aplus-header-price">$48.00 <small>/ 30ml</small></div>
+        <div class="aplus-header-stars">
+          <span class="stars">★★★★★</span>
+          <span class="rating-count">4.8 (2,847 reviews)</span>
+        </div>
+      </div>
+      <div>
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <rect width="400" height="300" fill="#111"/>
+          <circle cx="200" cy="140" r="110" fill="#1a2a1a" opacity="0.6"/>
+          <rect x="130" y="40" width="140" height="220" rx="14" fill="#1a1a1a"/>
+          <rect x="148" y="58" width="104" height="130" rx="8" fill="#c1440e" opacity="0.7"/>
+          <rect x="155" y="65" width="90" height="116" rx="5" fill="rgba(255,255,255,0.08)"/>
+          <circle cx="200" cy="123" r="35" fill="rgba(255,255,255,0.1)"/>
+          <circle cx="200" cy="123" r="20" fill="white" opacity="0.15"/>
+          <rect x="155" y="200" width="50" height="6" rx="3" fill="white" opacity="0.4"/>
+          <rect x="155" y="212" width="70" height="5" rx="2" fill="white" opacity="0.2"/>
+          <rect x="155" y="224" width="40" height="5" rx="2" fill="white" opacity="0.15"/>
+          <rect x="230" y="200" width="22" height="22" rx="4" fill="#b8962e"/>
+          <text x="241" y="215" text-anchor="middle" fill="white" font-size="9" font-weight="bold">A+</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Feature Modules -->
+    <div class="aplus-modules">
+      <div class="aplus-module">
+        <div class="aplus-module-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" fill="#1a6b6b" opacity="0.8"/>
+            <path d="M8 12l3 3 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="aplus-module-title">98% Natural Formula</div>
+        <div class="aplus-module-desc">Sourced from certified organic farms. No parabens, sulfates, or synthetic fragrances. COSMOS certified.</div>
+        <div class="aplus-module-tag">Ingredient Story</div>
+      </div>
+      <div class="aplus-module">
+        <div class="aplus-module-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="3" width="18" height="18" rx="4" fill="#1a6b6b" opacity="0.8"/>
+            <path d="M8 12h8M12 8v8" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="aplus-module-title">Clinically Tested</div>
+        <div class="aplus-module-desc">Independent dermatology trials across 240 participants. 94% reported visible improvement within 2 weeks.</div>
+        <div class="aplus-module-tag">Clinical Proof</div>
+      </div>
+      <div class="aplus-module">
+        <div class="aplus-module-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <ellipse cx="12" cy="12" rx="9" ry="9" fill="#1a6b6b" opacity="0.8"/>
+            <path d="M12 7v5l3 3" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="aplus-module-title">14-Day Guarantee</div>
+        <div class="aplus-module-desc">See measurable results in 14 days or return it free. We stand behind every bottle with a full refund promise.</div>
+        <div class="aplus-module-tag">Trust Signal</div>
+      </div>
+      <div class="aplus-module">
+        <div class="aplus-module-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <polygon points="12,2 20,20 4,20" fill="#1a6b6b" opacity="0.8"/>
+            <circle cx="12" cy="15" r="1.5" fill="white"/>
+            <path d="M12 8v5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="aplus-module-title">Sustainable Packaging</div>
+        <div class="aplus-module-desc">100% recyclable glass bottle. Carbon-neutral shipping. B Corp certified brand since 2019.</div>
+        <div class="aplus-module-tag">Brand Values</div>
+      </div>
+      <div class="aplus-module">
+        <div class="aplus-module-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="8" width="20" height="12" rx="3" fill="#1a6b6b" opacity="0.8"/>
+            <rect x="8" y="4" width="8" height="6" rx="2" fill="#0f5050"/>
+          </svg>
+        </div>
+        <div class="aplus-module-title">How to Use</div>
+        <div class="aplus-module-desc">Apply 2-3 drops to clean skin morning and evening. Layer under moisturizer. Pat gently — do not rub.</div>
+        <div class="aplus-module-tag">Usage Guide</div>
+      </div>
+      <div class="aplus-module">
+        <div class="aplus-module-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <circle cx="9" cy="12" r="6" fill="#1a6b6b" opacity="0.6"/>
+            <circle cx="15" cy="12" r="6" fill="#1a6b6b" opacity="0.8"/>
+          </svg>
+        </div>
+        <div class="aplus-module-title">Complete the Routine</div>
+        <div class="aplus-module-desc">Pair with our Hydrating Cleanser and Daily SPF for maximum efficacy. Bundled sets available.</div>
+        <div class="aplus-module-tag">Cross-Sell</div>
+      </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="aplus-comparison">
+      <h3 class="comparison-title">How We Compare</h3>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th style="width:30%">Feature</th>
+            <th class="highlight" style="width:23%">✦ Our Serum</th>
+            <th style="width:23%">Brand B</th>
+            <th style="width:23%">Brand C</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Natural Ingredients</td>
+            <td class="highlight"><span class="check">98%</span></td>
+            <td>72%</td>
+            <td>55%</td>
+          </tr>
+          <tr>
+            <td>Dermatologist Tested</td>
+            <td class="highlight"><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>Cruelty Free Certified</td>
+            <td class="highlight"><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>Results Guarantee</td>
+            <td class="highlight"><span class="check">14 days</span></td>
+            <td>30 days</td>
+            <td><span class="cross">None</span></td>
+          </tr>
+          <tr>
+            <td>Recyclable Packaging</td>
+            <td class="highlight"><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>Price per ml</td>
+            <td class="highlight"><span class="check">$1.60</span></td>
+            <td>$2.10</td>
+            <td>$1.85</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section services-section" id="services">
+  <div class="section-header">
+    <p class="section-tag">What We Offer</p>
+    <h2 class="section-title">Full-stack <em>marketplace content</em></h2>
+    <p class="section-sub">Everything you need to dominate product search and convert browsers into buyers — delivered fast.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-title">Hero Images</div>
+      <div class="service-desc">Main listing images with white backgrounds, shadow, and marketplace-compliant specs for Amazon, Etsy, Shopify, Takealot, Jumia, and more.</div>
+      <div class="service-tags">
+        <span class="tag">Amazon</span>
+        <span class="tag">Shopify</span>
+        <span class="tag">Jumia</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-title">Product Infographics</div>
+      <div class="service-desc">Dimension charts, ingredient callouts, feature spotlights, and comparison graphics that communicate value at a glance.</div>
+      <div class="service-tags">
+        <span class="tag">Feature Callouts</span>
+        <span class="tag">Dimensions</span>
+        <span class="tag">Comparison</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-title">Lifestyle Composites</div>
+      <div class="service-desc">CGI and photo composites placing your product in aspirational scenes — no photoshoot required. Delivered in 48 hours.</div>
+      <div class="service-tags">
+        <span class="tag">CGI Composite</span>
+        <span class="tag">Room Settings</span>
+        <span class="tag">In-Use Shots</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-title">Amazon A+ Content</div>
+      <div class="service-desc">Full A+ and Premium A+ module design — brand story, comparison charts, feature modules, and lifestyle banners.</div>
+      <div class="service-tags">
+        <span class="tag">A+ Modules</span>
+        <span class="tag">Premium A+</span>
+        <span class="tag">Brand Story</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-title">Brand Store Design</div>
+      <div class="service-desc">Complete Amazon Brand Store or Shopify storefront design with custom banners, navigation, and collection pages.</div>
+      <div class="service-tags">
+        <span class="tag">Storefront</span>
+        <span class="tag">Brand Store</span>
+        <span class="tag">Navigation</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-title">Video & GIF Content</div>
+      <div class="service-desc">Short-form product videos, unboxing animations, and GIF previews optimised for marketplace and social ad placements.</div>
+      <div class="service-tags">
+        <span class="tag">Product Video</span>
+        <span class="tag">GIF</span>
+        <span class="tag">Unboxing</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Pixel<span>Shelf</span></div>
+      <p class="footer-tagline">Marketplace content studio specialising in e-commerce visuals that convert. Trusted by 340+ brands across Africa, Europe, and North America.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#">Hero Images</a></li>
+        <li><a href="#">Infographics</a></li>
+        <li><a href="#">Lifestyle Composites</a></li>
+        <li><a href="#">A+ Content</a></li>
+        <li><a href="#">Brand Store</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Platforms</div>
+      <ul class="footer-links">
+        <li><a href="#">Amazon</a></li>
+        <li><a href="#">Shopify</a></li>
+        <li><a href="#">Jumia</a></li>
+        <li><a href="#">Takealot</a></li>
+        <li><a href="#">Etsy</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 PixelShelf Studio. All rights reserved.</span>
+    <span class="footer-copy">Nairobi · London · New York</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <button class="lightbox-close" id="lb-close" aria-label="Close">✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lb-prev" aria-label="Previous">‹</button>
+  <button class="lightbox-nav lightbox-next" id="lb-next" aria-label="Next">›</button>
+  <div class="lightbox-inner">
+    <div class="lightbox-visual" id="lb-visual"></div>
+    <div class="lightbox-info">
+      <p class="lightbox-category" id="lb-category"></p>
+      <h3 class="lightbox-title" id="lb-title"></h3>
+      <p class="lightbox-desc" id="lb-desc"></p>
+      <div class="lightbox-meta" id="lb-meta"></div>
+      <div class="lightbox-actions">
+        <button class="btn-primary" style="font-size:0.8rem;padding:0.75rem 1.5rem;">Request Similar</button>
+        <button class="btn-ghost" style="font-size:0.8rem;padding:0.75rem 1.5rem;">Get a Quote</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const galleryData = [
+    {
+      title: "Skincare Hero Series",
+      category: "Hero Image · Amazon",
+      desc: "Clean white-background hero images optimised for Amazon search results. Soft product shadows, precise colour calibration, and compliant 2000×2000px delivery. Skincare and beauty vertical.",
+      meta: [
+        { label: "Platform", value: "Amazon US & EU" },
+        { label: "Format", value: "JPEG 2000×2000px" },
+        { label: "Turnaround", value: "24 hours" },
+        { label: "Revisions", value: "2 included" }
+      ],
+      svgIndex: 0
+    },
+    {
+      title: "Tech Product Hero",
+      category: "Hero Image · Shopify",
+      desc: "Dark-theme product hero for a consumer electronics brand. Deep navy background, cinematic lighting, and subtle reflections to convey premium quality.",
+      meta: [
+        { label: "Platform", value: "Shopify Store" },
+        { label: "Format", value: "WebP + PNG" },
+        { label: "Turnaround", value: "48 hours" },
+        { label: "Revisions", value: "3 included" }
+      ],
+      svgIndex: 1
+    },
+    {
+      title: "Luxury Fragrance",
+      category: "Editorial · Sephora",
+      desc: "High-end fragrance editorial with warm gold tones and minimal composition. Designed for Sephora product pages and brand magazine placements.",
+      meta: [
+        { label: "Platform", value: "Sephora + Brand Site" },
+        { label: "Format", value: "TIFF + JPEG" },
+        { label: "Turnaround", value: "72 hours" },
+        { label: "Revisions", value: "Unlimited" }
+      ],
+      svgIndex: 2
+    },
+    {
+      title: "Wellness Brand",
+      category: "Hero Image · Jumia",
+      desc: "Bold green-theme product imagery for a wellness supplement brand. Optimised for Jumia Kenya and Nigeria marketplace listing requirements.",
+      meta: [
+        { label: "Platform", value: "Jumia KE + NG" },
+        { label: "Format", value: "JPEG 1500×1500px" },
+        { label: "Turnaround", value: "24 hours" },
+        { label: "Revisions", value: "2 included" }
+      ],
+      svgIndex: 3
+    },
+    {
+      title: "Fashion Collection",
+      category: "Campaign · Takealot",
+      desc: "Seasonal fashion campaign imagery for a South African apparel brand. Bright and clean compositions designed to perform on Takealot and social ads.",
+      meta: [
+        { label: "Platform", value: "Takealot + Meta Ads" },
+        { label: "Format", value: "JPEG + MP4 teaser" },
+        { label: "Turnaround", value: "3 days" },
+        { label: "Revisions", value: "2 included" }
+      ],
+      svgIndex: 4
+    },
+    {
+      title: "Gaming Peripherals",
+      category: "Hero Image · Amazon Gaming",
+      desc: "Dark-mode RGB-inspired product shots for gaming accessories. Deep space atmosphere with dramatic accent lighting for maximum shelf impact.",
+      meta: [
+        { label: "Platform", value: "Amazon US Gaming" },
+        { label: "Format", value: "JPEG + GIF variant" },
+        { label: "Turnaround", value: "48 hours" },
+        { label: "Revisions", value: "3 included" }
+      ],
+      svgIndex: 5
+    }
+  ];
+
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    renderLightbox();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function renderLightbox() {
+    const d = galleryData[currentIndex];
+    document.getElementById('lb-category').textContent = d.category;
+    document.getElementById('lb-title').textContent = d.title;
+    document.getElementById('lb-desc').textContent = d.desc;
+    document.getElementById('lb-meta').innerHTML = d.meta.map(m =>
+      `<div class="lightbox-meta-row"><span class="lightbox-meta-label">${m.label}</span><span class="lightbox-meta-value">${m.value}</span></div>`
+    ).join('');
+    const items = document.querySelectorAll('.gallery-item');
+    const svgEl = items[d.svgIndex].querySelector('svg');
+    document.getElementById('lb-visual').innerHTML = svgEl ? svgEl.outerHTML : '';
+  }
+
+  document.querySelectorAll('.gallery-item').forEach((item, i) => {
+    item.addEventListener('click', () => openLightbox(i));
+  });
+
+  document.getElementById('lb-close').addEventListener('click', closeLightbox);
+  document.getElementById('lb-prev').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + galleryData.length) % galleryData.length;
+    renderLightbox();
+  });
+  document.getElementById('lb-next').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % galleryData.length;
+    renderLightbox();
+  });
+  document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') { currentIndex = (currentIndex - 1 + galleryData.length) % galleryData.length; renderLightbox(); }
+    if (e.key === 'ArrowRight') { currentIndex = (currentIndex + 1) % galleryData.length; renderLightbox(); }
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
